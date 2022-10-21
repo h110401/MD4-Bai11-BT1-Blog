@@ -1,5 +1,7 @@
 package rikkei.academy.model;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -13,17 +15,30 @@ public class Blog {
     private String author;
     private String content;
     @Temporal(TemporalType.TIMESTAMP)
+    @CreationTimestamp
     private Date date;
+
+    @ManyToOne
+    private Category category;
 
     public Blog() {
     }
 
-    public Blog(Long id, String title, String author, String content, Date date) {
+    public Blog(Long id, String title, String author, String content, Date date, Category category) {
         this.id = id;
         this.title = title;
         this.author = author;
         this.content = content;
         this.date = date;
+        this.category = category;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public Long getId() {
@@ -73,6 +88,7 @@ public class Blog {
                 ", title='" + title + '\'' +
                 ", author='" + author + '\'' +
                 ", content='" + content + '\'' +
+                ", category='" + category.getName() + '\'' +
                 ", date=" + date +
                 '}';
     }

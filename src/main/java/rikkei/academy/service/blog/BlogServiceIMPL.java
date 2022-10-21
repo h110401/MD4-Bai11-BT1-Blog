@@ -1,11 +1,14 @@
 package rikkei.academy.service.blog;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import rikkei.academy.model.Blog;
-import rikkei.academy.repository.blog.IBlogRepository;
+import rikkei.academy.model.Category;
+import rikkei.academy.repository.IBlogRepository;
 
-import java.util.List;
+import java.util.Optional;
 
 @Service
 public class BlogServiceIMPL implements IBlogService {
@@ -14,12 +17,17 @@ public class BlogServiceIMPL implements IBlogService {
     private IBlogRepository blogRepository;
 
     @Override
-    public List<Blog> findAll() {
+    public Iterable<Blog> findAll() {
         return blogRepository.findAll();
     }
 
     @Override
-    public Blog findById(Long id) {
+    public Page<Blog> findAll(Pageable pageable) {
+        return blogRepository.findAllByOrderByDateDesc(pageable);
+    }
+
+    @Override
+    public Optional<Blog> findById(Long id) {
         return blogRepository.findById(id);
     }
 
@@ -30,6 +38,11 @@ public class BlogServiceIMPL implements IBlogService {
 
     @Override
     public void remove(Long id) {
-        blogRepository.remove(id);
+        blogRepository.deleteById(id);
+    }
+
+    @Override
+    public Page<Blog> findAllByCategory(Category category, Pageable pageable) {
+        return blogRepository.findAllByCategory(category, pageable);
     }
 }
