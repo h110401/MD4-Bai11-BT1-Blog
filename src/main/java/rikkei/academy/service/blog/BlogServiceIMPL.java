@@ -45,4 +45,9 @@ public class BlogServiceIMPL implements IBlogService {
     public Page<Blog> findAllByCategory(Category category, Pageable pageable) {
         return blogRepository.findAllByCategory(category, pageable);
     }
+
+    @Override
+    public Iterable<Blog> findByCategory(Category category) {
+        return blogRepository.findAllByCategory(category);
+    }
 }

@@ -10,4 +10,6 @@ public interface IBlogRepository extends PagingAndSortingRepository<Blog, Long> 
     Page<Blog> findAllByOrderByDateDesc(Pageable pageable);
 
     Page<Blog> findAllByCategory(Category category, Pageable pageable);
+
+    Iterable<Blog> findAllByCategory(Category category);
 }

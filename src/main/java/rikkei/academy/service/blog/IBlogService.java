@@ -9,4 +9,6 @@ import rikkei.academy.service.IGenericService;
 
 public interface IBlogService extends IGenericService<Blog> {
     Page<Blog> findAllByCategory(Category category, Pageable pageable);
+
+    Iterable<Blog> findByCategory(Category category);
 }
